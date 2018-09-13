@@ -19,14 +19,24 @@
   var y = canvas.height - 30;
   var dx = 2;
   var dy = -2;
+  var ballRadius = 10;
 
   // ham ve 1 qua bong
   function drawBall(){
     ctx.beginPath();
-    ctx.arc(x, y, 10, 0, Math.PI*2);
+    ctx.arc(x, y, ballRadius, 0, Math.PI*2);
     ctx.fillStyle = "#0095DD";
     ctx.fill();
     ctx.closePath();
+    // cham vao tuong ben trai va ben phai thi bat lai
+    // - ballRadius la de 1 nua qua bong ko bi chim vao tuong trc khi nay lai
+    if (x + dx > canvas.width-ballRadius || x + dx < ballRadius){
+      dx = -dx;
+    }
+    // cham vao tuong o tren va duoi thi bat lai
+    if (y + dy > canvas.height-ballRadius || y + dy < ballRadius){
+      dy = -dy;
+    }
   }
 
   function draw(){
