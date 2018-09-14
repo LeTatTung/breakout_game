@@ -28,6 +28,13 @@
     ctx.fillStyle = "#0095DD";
     ctx.fill();
     ctx.closePath();
+
+  }
+
+  function draw(){
+    // dong nay de xoa dau vet cua qua bong
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBall();
     // cham vao tuong ben trai va ben phai thi bat lai
     // - ballRadius la de 1 nua qua bong ko bi chim vao tuong trc khi nay lai
     if (x + dx > canvas.width-ballRadius || x + dx < ballRadius){
@@ -37,12 +44,6 @@
     if (y + dy > canvas.height-ballRadius || y + dy < ballRadius){
       dy = -dy;
     }
-  }
-
-  function draw(){
-    // dong nay de xoa dau vet cua qua bong
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawBall();
     x += dx;
     y += dy;
   }
