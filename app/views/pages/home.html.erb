@@ -29,6 +29,22 @@
   var rightPressed = false;
   var leftPressed = false;
 
+  // xay dung hang gach de pha
+  var brickRowCount = 3;
+  var brickColumnCount = 5;
+  var brickWidth = 75;
+  var brickHeight = 20;
+  var brickPadding = 10;
+  var brickOffestTop = 30;
+  var brickOffestLeft = 30;
+
+  var bricks = [];
+  for (var c = 0; c < brickColumnCount; c++){
+    bricks[c] = [];
+    for (var r = 0; r < brickRowCount; r++){
+      bricks[c][r] = { x: 0, y: 0};
+    }
+  }
   //ham ve thanh chan
   function drawPaddle(){
     ctx.beginPath();
@@ -46,10 +62,26 @@
     ctx.closePath();
 
   }
-
+  // ve cach vien gach
+  function drawBricks(){
+    for (var c= 0; c < brickColumnCount; c++){
+      for (var r = 0; r < brickRowCount; r++){
+        var brickX = c*(brickWidth+brickPadding) + brickOffestLeft;
+        var brickY = r*(brickHeight+brickPadding)+brickOffestTop;
+        bricks[c][r].x = brickX;
+        bricks[c][r].y = brickY;
+        ctx.beginPath();
+        ctx.rect(brickX, brickY, brickWidth, brickHeight);
+        ctx.fillStyle = "#0095DD";
+        ctx.fill();
+        ctx.closePath();
+      }
+    }
+  }
   function draw(){
     // dong nay de xoa dau vet cua qua bong
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBricks();
     drawBall();
     drawPaddle();
     // cham vao tuong ben trai va ben phai thi bat lai
