@@ -21,6 +21,22 @@
   var dy = -2;
   var ballRadius = 10;
 
+  // bien kiem soat thanh chan
+  var paddleHeight = 10;
+  var paddleWidth = 75;
+  var paddleX = (canvas.width-paddleWidth)/2;
+  // kiem soat huong di chuyen cua thanh chan
+  var rightPressed = false;
+  var leftPressed = false;
+
+  //ham ve thanh chan
+  function drawPaddle(){
+    ctx.beginPath();
+    ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+     ctx.fillStyle = "#0095DD";
+     ctx.fill();
+    ctx.closePath();
+  }
   // ham ve 1 qua bong
   function drawBall(){
     ctx.beginPath();
@@ -35,6 +51,7 @@
     // dong nay de xoa dau vet cua qua bong
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBall();
+    drawPaddle();
     // cham vao tuong ben trai va ben phai thi bat lai
     // - ballRadius la de 1 nua qua bong ko bi chim vao tuong trc khi nay lai
     if (x + dx > canvas.width-ballRadius || x + dx < ballRadius){
@@ -44,10 +61,37 @@
     if (y + dy > canvas.height-ballRadius || y + dy < ballRadius){
       dy = -dy;
     }
+    if(rightPressed && paddleX < canvas.width-paddleWidth) {
+      paddleX += 7;
+    }
+    else if(leftPressed && paddleX > 0) {
+      paddleX -= 7;
+    }
     x += dx;
     y += dy;
   }
+  // kiem soat su kien luc co phim dc an
+  document.addEventListener("keydown", keyDownHandler, false);
+  document.addEventListener("keyup", keyUpHandler, false);
 
+  //ham thuc hien
+  function keyDownHandler(e) {
+    if(e.keyCode == 39) {
+      rightPressed = true;
+    }
+    else if(e.keyCode == 37) {
+      leftPressed = true;
+    }
+  }
+
+  function keyUpHandler(e) {
+    if(e.keyCode == 39) {
+      rightPressed = false;
+    }
+    else if(e.keyCode == 37) {
+      leftPressed = false;
+    }
+  }
   setInterval(draw, 10);
 </script>
 
