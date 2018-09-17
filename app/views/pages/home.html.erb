@@ -46,6 +46,7 @@
     }
   }
   var score = 0;
+  var lives = 3;
 
   //ham ve thanh chan
   function drawPaddle(){
@@ -83,6 +84,11 @@
     }
   }
 
+  function drawLives(){
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Lives: " +lives, canvas.width-65, 20);
+  }
   function draw(){
     // dong nay de xoa dau vet cua qua bong
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -90,6 +96,7 @@
     drawBall();
     drawPaddle();
     drawScore();
+    drawLives();
     collisionDetection();
     // cham vao tuong ben trai va ben phai thi bat lai
     // - ballRadius la de 1 nua qua bong ko bi chim vao tuong trc khi nay lai
@@ -103,8 +110,17 @@
       if (x > paddleX && x < paddleX + paddleWidth){
         dy = -dy;
       }else{
-        alert("GAME OVER");
-        document.location.reload();
+        lives --;
+        if (!lives){
+          alert("GAME OVER");
+          document.location.reload();
+        }else {
+          x = canvas.width/2;
+          y = canvas.height-30;
+          dx = 2;
+          dy = -2;
+          paddleX = (canvas.width - paddleWidth)/2;
+        }
       }
     }
     if (rightPressed && paddleX < canvas.width-paddleWidth) {
@@ -115,6 +131,8 @@
     }
     x += dx;
     y += dy;
+    // them dong nay de draw tu goi lai chinh no
+    requestAnimationFrame(draw);
   }
   // kiem soat su kien luc co phim dc an
   document.addEventListener("keydown", keyDownHandler, false);
@@ -174,7 +192,7 @@
     ctx.fillStyle = "#0095DD";
     ctx.fillText("Score: " +score, 8, 20);
   }
-  setInterval(draw, 10);
+  draw();
 </script>
 
 </body>
