@@ -119,6 +119,8 @@
   // kiem soat su kien luc co phim dc an
   document.addEventListener("keydown", keyDownHandler, false);
   document.addEventListener("keyup", keyUpHandler, false);
+  // dieu khien mouse
+  document.addEventListener("mousemove", mouseMoveHanlder, false);
 
   //ham thuc hien
   function keyDownHandler(e) {
@@ -136,6 +138,14 @@
     }
     else if(e.keyCode == 37) {
       leftPressed = false;
+    }
+  }
+
+  //ham bat su kien di chuyen con tro chuot
+  function mouseMoveHanlder(e){
+    var relativeX = e.clientX - canvas.offsetLeft;
+    if (relativeX > 0 && relativeX < canvas.width){
+      paddleX = relativeX - paddleWidth/2;
     }
   }
   // ham phat hien co va cham xay ra hay khong
